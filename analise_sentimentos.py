@@ -12,3 +12,6 @@ def analisar_sentimento(texto):
         return "Neutro"
 
 if __name__ == "__main__":
+    tweet_exemplo = "Amei o novo recurso do Twitter!"
+    sentimento = analisar_sentimento(tweet_exemplo)
+    print(f"Sentimento: {sentimento}")
