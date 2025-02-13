@@ -1,0 +1,20 @@
+# Ignorar pastas e arquivos do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar ambiente virtual
+venv/
+env/
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos de configuração do sistema
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# Ignorar arquivos de IDEs (ex: VSCode, PyCharm)
+.vscode/
+.idea/
