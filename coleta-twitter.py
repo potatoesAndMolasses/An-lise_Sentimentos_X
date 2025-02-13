@@ -2,7 +2,7 @@ import tweepy
 from dotenv import load_dotenv
 import os
 from detect_language import detect_language
-from analisar_sentimento import analisar_sentimento
+from analise_sentimentos import analisar_sentimento
 
 # Carrega as variáveis de ambiente
 load_dotenv()
@@ -12,17 +12,6 @@ bearer_token = os.getenv('BEARER_TOKEN')
 
 # Inicializa o cliente da API V2
 client = tweepy.Client(bearer_token=bearer_token)
-
-# Função para analisar o sentimento de um tweet
-def analisar_sentimento(texto):
-    blob = TextBlob(texto)
-    sentimento = blob.sentiment.polarity
-    if sentimento > 0:
-        return "Positivo"
-    elif sentimento < 0:
-        return "Negativo"
-    else:
-        return "Neutro"
 
 # Termo de busca: "clima"
 search_term = clima
