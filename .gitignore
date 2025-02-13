@@ -18,3 +18,6 @@ Thumbs.db  # Windows
 # Ignorar arquivos de IDEs (ex: VSCode, PyCharm)
 .vscode/
 .idea/
+
+# Ignorar o arquivo .env
+.env

@@ -1,27 +1,33 @@
-name: Coleta de Dados do Twitter
+name: Collect Tweets About Climate
 
 on:
-  schedule:
-    - cron: '0 9 * * *'  # Rodar todos os dias às 9 AM
-  workflow_dispatch:  # Permite rodar manualmente
+  push:
+    branches:
+      - main
 
 jobs:
-  coleta:
+  collect_tweets:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repositório
-        uses: actions/checkout@v2
+      - name: Check out the repository
+        uses: actions/checkout@v3
 
-      - name: Configurar Python
-        uses: actions/setup-python@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.8'
+          python-version: 3.9
 
-      - name: Instalar dependências
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Rodar script de coleta
-        run: python coleta_twitter.py
+      - name: Run the tweet collection script
+        env:
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+        run: |
+          python script.py
