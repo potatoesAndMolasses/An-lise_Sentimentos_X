@@ -1,4 +1,5 @@
 import tweepy
+import csv
 from dotenv import load_dotenv
 import os
 from detect_language import detect_language
@@ -14,7 +15,7 @@ bearer_token = os.getenv('BEARER_TOKEN')
 client = tweepy.Client(bearer_token=bearer_token)
 
 # Termo de busca: "clima"
-search_term = clima
+search_term = "clima"
 
 # Abre o arquivo CSV para escrita (se não existir, ele será criado)
 with open('tweets_sentimentos.csv', mode='a', newline='', encoding='utf-8') as file:
@@ -25,18 +26,14 @@ with open('tweets_sentimentos.csv', mode='a', newline='', encoding='utf-8') as f
         writer.writerow(["Tweet", "Sentimento", "Data", "Idioma"])
 
     # Realiza a busca em todos os idiomas definidos
-    for idioma, termo in termos_busca.items():
-        # Busca os tweets mais recentes sobre o termo de busca no idioma correspondente
-        response = client.search_recent_tweets(query=termo, max_results=25, tweet_fields=["created_at"], lang="pt")
+    response = client.search_recent_tweets(query=search_term, max_results=25, tweet_fields=["created_at"], lang="pt")
 
-        # Exibe os tweets encontrados e escreve no arquivo CSV
-        if response.data:
-            for tweet in response.data:
-                sentimento = analisar_sentimento(tweet.text)
-                writer.writerow([tweet.text, sentimento, tweet.created_at, "pt"])
-
-                # Exibe o tweet e o sentimento no console
-                print(f"Idioma: {idioma}")
-                print(f"Tweet: {tweet.text}")
-                print(f"Sentimento: {sentimento}")
-                print("-" * 50)
+    if response.data:
+        for tweet in response.data:
+            sentimento = analisar_sentimento(tweet.text)
+            writer.writerow([tweet.text, sentimento, tweet.created_at, "pt"])
+            
+            #Exibir o sentimento do tweet
+            print(f"Tweet: {tweet.text}")
+            print(f"Sentimento: {sentimento}")
+            print("-" * 50)
