@@ -18,10 +18,16 @@ jobs:
         with:
           python-version: 3.9
 
+      - name: Create and activate virtual environment
+        run: |
+          python -m venv venv  # Cria o ambiente virtual
+          source venv/bin/activate  # Ativa o ambiente virtual
+
       - name: Install dependencies
         run: |
+          source venv/bin/activate  # Ativa o ambiente virtual
           python -m pip install --upgrade pip
-          pip install -r requerimentos.txt
+          pip install -r requerimentos.txt  # Instala as dependências dentro do ambiente virtual
 
       - name: Run the tweet collection script
         env:
@@ -30,4 +36,5 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
         run: |
-          python script.py
+          source venv/bin/activate  # Ativa o ambiente virtual
+          python coleta-twitter.py  # Executa o script correto
