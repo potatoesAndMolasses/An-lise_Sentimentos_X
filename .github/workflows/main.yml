@@ -31,10 +31,10 @@ jobs:
 
       - name: Run the tweet collection script
         env:
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
           CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
           CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
         run: |
-          source venv/bin/activate  # Ativa o ambiente virtual
-          python coleta-twitter.py  # Executa o script correto
+          python coleta-twitter.py

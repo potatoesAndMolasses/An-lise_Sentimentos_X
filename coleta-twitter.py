@@ -11,8 +11,6 @@ load_dotenv()
 # Autenticação com a API V2 do X (Twitter) usando o bearer token
 bearer_token = os.getenv('BEARER_TOKEN')
 
-client = tweepy.Client(auth=auth)
-
 # Inicializa o cliente da API V2
 client = tweepy.Client(bearer_token=bearer_token)
 
